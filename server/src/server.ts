@@ -1,7 +1,6 @@
 import express from "express";
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
-export const secret = "xxx";
 dotenv.config();
 import cors from "cors";
 const cookieParser = require("cookie-parser");
@@ -21,6 +20,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const PASSWORD = process.env.PASSWORD;
+export const secret =  process.env.SECRET;
 //password From .env file With your local mysql password
 
 // Create MySQL connection pool
