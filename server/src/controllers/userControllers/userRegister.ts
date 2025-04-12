@@ -18,8 +18,8 @@ async function registerUser(req:Request,res:Response) {
 
         // Insert user into database
         const [result] = await pool.execute(
-            'INSERT INTO users (user_name, user_email, user_password) VALUES (?, ?, ?)',
-            [username, email, hashedPassword]
+            'INSERT INTO users (user_name, user_email, user_password,user_role) VALUES (?, ?, ?,?)',
+            [username, email, hashedPassword,]
         );
 
 
