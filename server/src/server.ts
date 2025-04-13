@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const PASSWORD = process.env.PASSWORD;
-export const secret =  process.env.SECRET;
+export const secret = process.env.SECRET;
 //password From .env file With your local mysql password
 
 // Create MySQL connection pool
@@ -39,6 +39,9 @@ export const pool = mysql.createPool({
 // routes
 import userRoutes from "./routes/userRoutes";
 app.use("/api/users", userRoutes);
+
+import gameRoutes from "./routes/gamesRoutes";
+app.use("/api/games", gameRoutes);
 
 // Start the server
 const startServer = async () => {
