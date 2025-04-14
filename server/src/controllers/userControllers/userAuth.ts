@@ -9,9 +9,7 @@ export async function authMiddleware(req: any, res: any, next: any) {
   try {
     const token = req.cookies.token;
 
-    if (!token) {
-      return res.status(401).json({ success: false, message: "Authentication token not found." });
-    }
+    if (!token) return res.status(401).json({ success: false, message: "Authentication token not found." });
 
     const decoded = jwt.decode(token, secret);
 
