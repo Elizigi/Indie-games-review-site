@@ -39,7 +39,8 @@ export const pool = mysql.createPool({
 // routes
 import userRoutes from "./routes/userRoutes";
 app.use("/api/users", userRoutes);
-
+import postsRoutes from "./routes/postsRoutes";
+app.use("/api/posts", postsRoutes);
 import gameRoutes from "./routes/gamesRoutes";
 app.use("/api/games", gameRoutes);
 
