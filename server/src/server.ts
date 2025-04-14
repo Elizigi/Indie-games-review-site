@@ -19,15 +19,15 @@ app.use(cookieParser());
 // Configure middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const PASSWORD = process.env.PASSWORD;
-export const secret = process.env.SECRET;
+const PASSWORD = "";
+export const secret = "xxx";
 //password From .env file With your local mysql password
 
 // Create MySQL connection pool
 export const pool = mysql.createPool({
   host: "localhost",
   user: "root",
-  password: PASSWORD,
+  password: "",
   database: "mini_steam",
   waitForConnections: true,
   connectionLimit: 10,
