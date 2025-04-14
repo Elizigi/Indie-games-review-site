@@ -74,8 +74,7 @@ async function addGame(req: any, res: any) {
         game_rating_users ?? null,
       ]
     );
-    console.log(result)
-
+    
     return res.status(201).json({
       success: true,
       message: "Game added successfully",
