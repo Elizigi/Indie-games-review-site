@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useAddPostVM = (gameId: number, onClose: () => void) => {
+export const useAddPostVM = (gameId: number, onClose: (close:boolean) => void) => {
   const [formData, setFormData] = useState({ text: "" });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -31,7 +31,7 @@ export const useAddPostVM = (gameId: number, onClose: () => void) => {
         setMessage(data.message || "Something went wrong");
       } else {
         setMessage("Post added!");
-        onClose(); 
+        onClose(true); 
       }
     } catch (err: any) {
       setMessage("Error: " + err.message);

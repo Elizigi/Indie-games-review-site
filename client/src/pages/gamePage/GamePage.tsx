@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import styles from "./GamePage.module.scss";
+import AddPostWindow from "../../components/AddPostWindow/AddPostWindow";
 
 interface Post {
   post_id: number;
@@ -21,16 +22,18 @@ const GamePage = () => {
   const [game, setGame] = useState<Game | null>(null);
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [postPopUp, setPostPopUp] = useState(false);
 
   useEffect(() => {
     const fetchGameAndPosts = async () => {
       try {
-        const resGame = await fetch(`http://localhost:3000/api/games/${id}`, {
+        const resGame = await fetch(`http://localhost:3000/api/games/fetch-game/${id}`, {
           credentials: "include",
         });
         const gameData = await resGame.json();
         if (!resGame.ok) throw new Error(gameData.message || "Game fetch failed");
-        setGame(gameData);
+        const {game}= gameData;
+        setGame(game);
 
         const resPosts = await fetch(`http://localhost:3000/api/posts/get-posts/${id}`, {
           credentials: "include",
@@ -48,8 +51,9 @@ const GamePage = () => {
   }, [id]);
 
   const handleAddPost = () => {
-    // You can navigate to a post creation page or open a modal
     console.log("Add Post clicked for game ID:", id);
+    if(game)
+    return
   };
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
@@ -62,7 +66,7 @@ const GamePage = () => {
         <div>
           <h1>{game.game_name}</h1>
           <p>{game.game_description}</p>
-          <button className={styles.addPostButton} onClick={handleAddPost}>+ Add Post</button>
+          <button className={styles.addPostButton} onClick={()=>setPostPopUp(true)}>+ Add Post</button>
         </div>
       </div>
 
@@ -81,6 +85,7 @@ const GamePage = () => {
             </div>
           ))
         )}
+         {postPopUp &&< AddPostWindow gameId={game?.game_id} onClose={()=>setPostPopUp}/>};
       </div>
     </div>
   );

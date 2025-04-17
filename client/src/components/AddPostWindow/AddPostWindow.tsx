@@ -4,7 +4,7 @@ import { useAddPostVM } from "./AddPostWindowVM";
 
 interface Props {
   gameId: number;
-  onClose: () => void;
+  onClose: (close:boolean) => void;
 }
 
 const AddPostWindow: FC<Props> = ({ gameId, onClose }) => {
@@ -32,7 +32,7 @@ const AddPostWindow: FC<Props> = ({ gameId, onClose }) => {
             <button type="submit" disabled={loading}>
               {loading ? "Sending..." : "Send"}
             </button>
-            <button type="button" onClick={onClose}>
+            <button type="button" onClick={()=>onClose(true)}>
               Cancel
             </button>
           </div>
