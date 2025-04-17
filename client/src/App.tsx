@@ -1,9 +1,9 @@
-import RegisterComp from "./components/registerComp/RegisterComp";
+import MainPage from "./pages/mainPage/MainPage";
 
 function App() {
 
   return (
-   <RegisterComp />
+   <MainPage />
   
   )
 }

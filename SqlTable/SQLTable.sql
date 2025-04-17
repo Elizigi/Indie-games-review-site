@@ -95,7 +95,6 @@ CREATE TABLE developer_join_table (
   FOREIGN KEY (game_id) REFERENCES games(game_id),
   UNIQUE KEY (user_id, game_id)
 );
-<<<<<<< HEAD
 
 INSERT INTO games (
   game_name,
@@ -158,7 +157,6 @@ VALUES
   76,
   1100000
 );
-=======
 INSERT INTO games (
     game_name, game_developer, game_release_date, game_genre,
     game_description, game_main_img_url, game_rating_combined, game_rating_users
@@ -202,4 +200,3 @@ INSERT INTO games (
 ('Slay the Spire', 'MegaCrit', '2019-01-23 00:00:00', 'strategy',
  'Card-based roguelike where you climb a spire battling enemies.',
  'https://example.com/slaythespire.jpg', 0, 0);
->>>>>>> origin/main
