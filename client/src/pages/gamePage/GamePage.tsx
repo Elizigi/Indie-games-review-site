@@ -29,6 +29,7 @@ const GamePage = () => {
           credentials: "include",
         });
         const gameData = await resGame.json();
+        if (!resGame.ok) throw new Error(gameData.message || "Game fetch failed");
         setGame(gameData);
 
         const resPosts = await fetch(`http://localhost:3000/api/posts/get-posts/${id}`, {
@@ -46,6 +47,11 @@ const GamePage = () => {
     fetchGameAndPosts();
   }, [id]);
 
+  const handleAddPost = () => {
+    // You can navigate to a post creation page or open a modal
+    console.log("Add Post clicked for game ID:", id);
+  };
+
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (!game) return <div className={styles.error}>Game not found.</div>;
 
@@ -56,20 +62,25 @@ const GamePage = () => {
         <div>
           <h1>{game.game_name}</h1>
           <p>{game.game_description}</p>
+          <button className={styles.addPostButton} onClick={handleAddPost}>+ Add Post</button>
         </div>
       </div>
 
       <h2 className={styles.postHeader}>Posts</h2>
       <div className={styles.postList}>
-        {posts.map((post) => (
-          <div key={post.post_id} className={styles.post}>
-            <img src={post.post_img_url} alt={post.post_title} className={styles.postImage} />
-            <div>
-              <h3>{post.post_title}</h3>
-              <p>{post.post_description}</p>
+        {posts.length === 0 ? (
+          <p>No posts yet.</p>
+        ) : (
+          posts.map((post) => (
+            <div key={post.post_id} className={styles.post}>
+              <img src={post.post_img_url} alt={post.post_title} className={styles.postImage} />
+              <div>
+                <h3>{post.post_title}</h3>
+                <p>{post.post_description}</p>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
