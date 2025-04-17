@@ -30,16 +30,16 @@ const MainPage = () => {
 
       <div className={styles.carousel}>
         {games.map((game) => (
-          <div key={game.id} className={styles.carouselItem}>
-            <img src={game.imageUrl} alt={game.title} />
-            <p>{game.title}</p>
+          <div key={game.game_id} className={styles.carouselItem}>
+            <img src={game.game_main_img_url} alt={game.game_name} />
+            <p>{game.game_name}</p>
           </div>
         ))}
       </div>
 
       <div className={styles.grid}>
         {games.map((game) => (
-          <GameCard key={game.id} game={game} />
+          <GameCard key={game.game_id} game={game} />
         ))}
       </div>
     </div>

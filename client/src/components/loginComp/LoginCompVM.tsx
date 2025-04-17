@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router";
 
 const LoginCompVM = () => {
+  const navigate = useNavigate()
   async function loginUser(email: string, password: string) {
     try {
       console.log(email,password)
@@ -23,6 +25,7 @@ const LoginCompVM = () => {
       }
       const data = await response.json();
       console.log(data)
+      navigate("/")
     } catch (error) {
       console.error("some error have occurred", error);
     }
