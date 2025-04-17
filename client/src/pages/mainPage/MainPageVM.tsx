@@ -20,7 +20,7 @@ export const useMainPageVM = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("Полученные игры:", data);
+        console.log("Recieved games:", data);
         const { games }=data;
         setGames(games);
         setLoading(false);

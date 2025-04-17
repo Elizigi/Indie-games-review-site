@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./GameCard.module.scss";
-import AddPostWindow from "../AddPostWindow/AddPostWindow"; 
 
 export interface Game {
   game_id: number;
@@ -14,10 +13,10 @@ interface Props {
 }
 
 const GameCard = ({ game }: Props) => {
-  const [showPostWindow, setShowPostWindow] = useState(false);
+  const navigate = useNavigate();
 
-  const handleAddPostClick = () => {
-    setShowPostWindow(true);
+  const goToGamePage = () => {
+    navigate(`/game/${game.game_id}`);
   };
 
   return (
