@@ -8,6 +8,6 @@ const router = express.Router();
 router.post("/add-game", authMiddleware, addGame );
 router.get("/fetch-games",fetchGames);
 router.get("/fetch-game:id",fetchGameById);
-router.get("/games/:id", fetchGameById);
+router.get("/:id", fetchGameById);
 
 export default router;
