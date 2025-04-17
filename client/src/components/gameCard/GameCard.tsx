@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import styles from "./GameCard.module.scss";
 
 export interface Game {
@@ -20,24 +20,15 @@ const GameCard = ({ game }: Props) => {
   };
 
   return (
-    <>
-      <div className={styles.card}>
-        <img
-          src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/504230/capsule_616x353.jpg"
-          alt={game.game_description}
-          className={styles.image}
-        />
-        <h3>{game.game_name}</h3>
-        <button onClick={handleAddPostClick}>+ Add Post</button>
-      </div>
-
-      {showPostWindow && (
-        <AddPostWindow
-          gameId={game.game_id}
-          onClose={() => setShowPostWindow(false)}
-        />
-      )}
-    </>
+    <div className={styles.card} onClick={goToGamePage}>
+      <img
+        src={game.game_main_img_url}
+        alt={game.game_description}
+        className={styles.image}
+      />
+      <h3>{game.game_name}</h3>
+      <p>{game.game_description}</p>
+    </div>
   );
 };
 
