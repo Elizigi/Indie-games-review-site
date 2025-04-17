@@ -15,13 +15,14 @@ export const useMainPageVM = () => {
   const [userRole, setUserRole] = useState<"user" | "developer" | "admin" | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/games", {
+    fetch("http://localhost:3000/api/games/fetch-games", {
       credentials: "include",
     })
       .then((res) => res.json())
       .then((data) => {
         console.log("Полученные игры:", data);
-        setGames(data);
+        const { games }=data;
+        setGames(games);
         setLoading(false);
       })
       .catch(() => setLoading(false));
