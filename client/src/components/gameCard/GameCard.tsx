@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./GameCard.module.scss";
-import AddPostWindow from "../AddPostWindow/AddPostWindow"; // путь к окну
+import AddPostWindow from "../AddPostWindow/AddPostWindow"; 
 
 export interface Game {
   game_id: number;

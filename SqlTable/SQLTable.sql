@@ -95,3 +95,65 @@ CREATE TABLE developer_join_table (
   FOREIGN KEY (game_id) REFERENCES games(game_id),
   UNIQUE KEY (user_id, game_id)
 );
+
+INSERT INTO games (
+  game_name,
+  game_developer,
+  game_release_date,
+  game_genre,
+  game_description,
+  game_main_img_url,
+  game_rating_combined,
+  game_rating_users
+)
+VALUES
+(
+  'The Legend of Zelda: Breath of the Wild',
+  'Nintendo',
+  '2017-03-03 00:00:00',
+  'adventure',
+  'An open-world action-adventure game with beautiful exploration and puzzles.',
+  'https://example.com/images/zelda.jpg',
+  95,
+  1200000
+),
+(
+  'Elden Ring',
+  'FromSoftware',
+  '2022-02-25 00:00:00',
+  'rpg',
+  'A dark fantasy action RPG from the creators of Dark Souls.',
+  'https://example.com/images/eldenring.jpg',
+  92,
+  950000
+),
+(
+  'Portal 2',
+  'Valve',
+  '2011-04-19 00:00:00',
+  'puzzle',
+  'A mind-bending first-person puzzle game with humor and story.',
+  'https://example.com/images/portal2.jpg',
+  90,
+  800000
+),
+(
+  'Celeste',
+  'Matt Makes Games',
+  '2018-01-25 00:00:00',
+  'platformer',
+  'A challenging 2D platformer about climbing a mountain and self-discovery.',
+  'https://example.com/images/celeste.jpg',
+  88,
+  300000
+),
+(
+  'FIFA 23',
+  'EA Sports',
+  '2022-09-30 00:00:00',
+  'sports',
+  'The latest in EA’s football series with updated teams and improved gameplay.',
+  'https://example.com/images/fifa23.jpg',
+  76,
+  1100000
+);

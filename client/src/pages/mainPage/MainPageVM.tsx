@@ -15,7 +15,7 @@ export const useMainPageVM = () => {
   const [userRole, setUserRole] = useState<"user" | "developer" | "admin" | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/games", {
+    fetch("http://localhost:3000/api/games/add-game", {
       credentials: "include",
     })
       .then((res) => res.json())

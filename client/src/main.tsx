@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage.tsx'
 import AddGame from './pages/games/AddGame.tsx'
 import Unauthorized from './pages/auth/Unauthorized.tsx'
 import AddPostWindow from './components/AddPostWindow/AddPostWindow.tsx'
+import MainPage from './pages/mainPage/MainPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/add-game" element={<AddGame />}></Route>
         <Route path="/401" element={<Unauthorized />}></Route>
         <Route path="/addpost" element={<AddPostWindow />}></Route>
+        <Route path="/main" element={<MainPage />}></Route>
 
       </Routes>
      </BrowserRouter>
