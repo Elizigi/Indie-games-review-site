@@ -69,6 +69,13 @@ CREATE TABLE post_user_join_table (
   UNIQUE KEY (user_id, post_id)
 );
 
+
+
+ALTER TABLE post_user_join_table
+ADD COLUMN game_id INT NOT NULL,
+ADD FOREIGN KEY (game_id) REFERENCES games(game_id);
+
+
 CREATE TABLE game_images (
   _id INT AUTO_INCREMENT PRIMARY KEY,
   game_id INT NOT NULL,

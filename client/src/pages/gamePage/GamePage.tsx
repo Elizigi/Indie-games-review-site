@@ -25,21 +25,38 @@ const GamePage = () => {
   const [postPopUp, setPostPopUp] = useState(false);
 
   useEffect(() => {
-    const fetchGameAndPosts = async () => {
+    const fetchPosts = async () => {
       try {
-        const resGame = await fetch(`http://localhost:3000/api/games/fetch-game/${id}`, {
-          credentials: "include",
-        });
-        const gameData = await resGame.json();
-        if (!resGame.ok) throw new Error(gameData.message || "Game fetch failed");
-        const {game}= gameData;
-        setGame(game);
-
-        const resPosts = await fetch(`http://localhost:3000/api/posts/get-posts/${id}`, {
-          credentials: "include",
-        });
+        const resPosts = await fetch(
+          `http://localhost:3000/api/posts/fetch-posts-by-game/${id}`,
+          {
+            credentials: "include",
+          }
+        );
         const postData = await resPosts.json();
-        setPosts(postData);
+        const { posts } = postData;
+
+        console.log(postData);
+
+        console.log(posts);
+        setPosts(posts);
+      } catch (err) {
+        console.error("Error loading game or posts:", err);
+      }
+    };
+    const fetchGames = async () => {
+      try {
+        const resGame = await fetch(
+          `http://localhost:3000/api/games/fetch-game/${id}`,
+          {
+            credentials: "include",
+          }
+        );
+        const gameData = await resGame.json();
+        if (!resGame.ok)
+          throw new Error(gameData.message ?? "Game fetch failed");
+        const { game } = gameData;
+        setGame(game);
       } catch (err) {
         console.error("Error loading game or posts:", err);
       } finally {
@@ -47,14 +64,9 @@ const GamePage = () => {
       }
     };
 
-    fetchGameAndPosts();
+    fetchGames();
+    fetchPosts();
   }, [id]);
-
-  const handleAddPost = () => {
-    console.log("Add Post clicked for game ID:", id);
-    if(game)
-    return
-  };
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (!game) return <div className={styles.error}>Game not found.</div>;
@@ -62,22 +74,37 @@ const GamePage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.gameHeader}>
-        <img src={game.game_main_img_url} alt={game.game_name} className={styles.image} />
+        <img
+          src={game.game_main_img_url}
+          alt={game.game_name}
+          className={styles.image}
+        />
         <div>
           <h1>{game.game_name}</h1>
           <p>{game.game_description}</p>
-          <button className={styles.addPostButton} onClick={()=>setPostPopUp(true)}>+ Add Post</button>
+          <button
+            className={styles.addPostButton}
+            onClick={() => setPostPopUp(true)}
+          >
+            + Add Post
+          </button>
         </div>
       </div>
 
       <h2 className={styles.postHeader}>Posts</h2>
       <div className={styles.postList}>
-        {posts.length === 0 ? (
+        {!posts ? (
           <p>No posts yet.</p>
         ) : (
           posts.map((post) => (
             <div key={post.post_id} className={styles.post}>
-              <img src={post.post_img_url} alt={post.post_title} className={styles.postImage} />
+              {post.post_img_url !== "aaa" && (
+                <img
+                  src={post.post_img_url}
+                  alt={post.post_title}
+                  className={styles.postImage}
+                />
+              )}
               <div>
                 <h3>{post.post_title}</h3>
                 <p>{post.post_description}</p>
@@ -85,7 +112,13 @@ const GamePage = () => {
             </div>
           ))
         )}
-         {postPopUp &&< AddPostWindow gameId={game?.game_id} onClose={()=>setPostPopUp}/>};
+        {postPopUp && (
+          <AddPostWindow
+            gameId={game?.game_id}
+            onClose={() => setPostPopUp(false)}
+            
+          />
+        )}{" "}
       </div>
     </div>
   );
