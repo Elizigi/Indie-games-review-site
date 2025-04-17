@@ -1,4 +1,3 @@
-// src/pages/games/MainPage.tsx
 import styles from "./MainPage.module.scss";
 import { useMainPageVM } from "./MainPageVM";
 import GameCard from "../../components/gameCard/GameCard";
@@ -31,7 +30,7 @@ const MainPage = () => {
       <div className={styles.carousel}>
         {games.map((game) => (
           <div key={game.game_id} className={styles.carouselItem}>
-            <img src={game.game_main_img_url} alt={game.game_name} />
+            <img src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/504230/capsule_616x353.jpg" alt={game.game_name} />
             <p>{game.game_name}</p>
           </div>
         ))}

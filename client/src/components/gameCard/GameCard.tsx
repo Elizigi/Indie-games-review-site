@@ -24,13 +24,11 @@ const GameCard = ({ game }: Props) => {
     <>
       <div className={styles.card}>
         <img
-          src={game.game_main_img_url}
+          src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/504230/capsule_616x353.jpg"
           alt={game.game_description}
           className={styles.image}
         />
         <h3>{game.game_name}</h3>
-        <p>{game.game_description}</p>
-
         <button onClick={handleAddPostClick}>+ Add Post</button>
       </div>
 
