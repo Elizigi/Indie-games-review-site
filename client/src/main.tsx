@@ -12,11 +12,12 @@ createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="/game/:id" element={<GamePage />} />
         </Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/add-game" element={<AddGame />}></Route>
         <Route path="/401" element={<Unauthorized />}></Route>
+        <Route path="/game/:id" element={<GamePage />} />
+
       </Routes>
     </BrowserRouter>
   </StrictMode>
