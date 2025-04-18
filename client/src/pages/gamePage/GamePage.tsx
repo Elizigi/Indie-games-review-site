@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import styles from "./GamePage.module.scss";
 import AddPostWindow from "../../components/AddPostWindow/AddPostWindow";
@@ -27,7 +27,7 @@ const GamePage = () => {
   const [loading, setLoading] = useState(true);
   const [postPopUp, setPostPopUp] = useState(false);
   const [hoveredRating, setHoveredRating] = useState(0);
-
+  const navigate = useNavigate()
   const [isHover,setIsHover]= useState(false);
   useEffect(() => {
     const fetchPosts = async () => {
@@ -120,6 +120,8 @@ const GamePage = () => {
     style={{ backgroundImage: `url(${game.game_main_img_url})` }}
   />
   <div className={styles.foreground}>
+  <button className={styles.arrow} onClick={()=>navigate("/")}>←</button>
+
     <h1>{game.game_name}</h1>
     <p>{game.game_description}</p>
     <div>
