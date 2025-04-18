@@ -87,12 +87,16 @@ CREATE TABLE review_join_table (
   _id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
   game_id INT NOT NULL,
-  review_description VARCHAR(255) NOT NULL UNIQUE,
+  review_description VARCHAR(255),
   review_rating INT CHECK (review_rating >= 1 AND review_rating <= 5) NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(user_id),
   FOREIGN KEY (game_id) REFERENCES games(game_id) ON DELETE CASCADE,
   UNIQUE KEY (user_id, game_id)
 );
+SHOW INDEXES FROM review_join_table;
+ALTER TABLE review_join_table DROP INDEX review_description;
+ALTER TABLE review_join_table
+MODIFY review_description VARCHAR(255);
 
 CREATE TABLE developer_join_table (
   _id INT AUTO_INCREMENT PRIMARY KEY,

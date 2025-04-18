@@ -27,6 +27,7 @@ const GamePage = () => {
   const [loading, setLoading] = useState(true);
   const [postPopUp, setPostPopUp] = useState(false);
   const [hoveredRating, setHoveredRating] = useState(0);
+
   const [isHover,setIsHover]= useState(false);
   useEffect(() => {
     const fetchPosts = async () => {
@@ -71,6 +72,25 @@ const GamePage = () => {
     fetchGames();
     fetchPosts();
   }, [id]);
+  async function rateGame() {
+    if(!game) return;
+    const response = await fetch("http://localhost:3000/api/games/rate-game", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include", 
+      body: JSON.stringify({
+        game_id: game?.game_id,
+        review_description: "description",
+        review_rating: hoveredRating
+      })
+    });
+  
+    const data = await response.json();
+    console.log(data)
+    return data;
+  }
 
   function rating() {
     const totalStars = 5;
@@ -80,13 +100,20 @@ const GamePage = () => {
     }
   
     const avg = Math.round(game.game_rating_combined / game.game_rating_users);
-    return "⭐".repeat(avg) + "☆".repeat(totalStars - avg); 
+    return  <>
+    <span style={{ color: "gold"  }}>
+      {"★".repeat(avg)}
+    </span>
+      {"☆".repeat(totalStars - avg)}
+   
+  </>; 
   }
+
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (!game) return <div className={styles.error}>Game not found.</div>;
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} style={{ backgroundImage: `url(${game.game_main_img_url})` }}>
   <div className={styles.gameHeader}>
   <div
     className={styles.backgroundImage}
@@ -106,6 +133,7 @@ const GamePage = () => {
       key={star}
       onMouseEnter={() => setHoveredRating(star)}
       onMouseLeave={() => setHoveredRating(0)}
+      onClick={()=>rateGame()}
       className={
         star <= (hoveredRating || Math.round(game?.game_rating_combined / game?.game_rating_users))
           ? styles.starFilled
@@ -120,6 +148,7 @@ const GamePage = () => {
  </button>
 </div>
     </div>
+    <div className={styles.posts}>
     <h2 className={styles.postHeader}>Posts</h2>
     <button
       className={styles.addPostButton}
@@ -154,7 +183,7 @@ const GamePage = () => {
             
           />
         )}{" "}
-      </div>
+      </div></div>
   </div>
   
 </div>
