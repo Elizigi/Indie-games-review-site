@@ -8,6 +8,7 @@ interface Post {
   post_title: string;
   post_description: string;
   post_img_url: string;
+
 }
 
 interface Game {
@@ -15,6 +16,8 @@ interface Game {
   game_name: string;
   game_description: string;
   game_main_img_url: string;
+  game_rating_combined:number;
+  game_rating_users:number;
 }
 
 const GamePage = () => {
@@ -23,7 +26,8 @@ const GamePage = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [postPopUp, setPostPopUp] = useState(false);
-
+  const [hoveredRating, setHoveredRating] = useState(0);
+  const [isHover,setIsHover]= useState(false);
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -68,30 +72,61 @@ const GamePage = () => {
     fetchPosts();
   }, [id]);
 
+  function rating() {
+    const totalStars = 5;
+  
+    if (!game?.game_rating_users || game?.game_rating_combined === 0) {
+      return "☆".repeat(totalStars); 
+    }
+  
+    const avg = Math.round(game.game_rating_combined / game.game_rating_users);
+    return "⭐".repeat(avg) + "☆".repeat(totalStars - avg); 
+  }
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (!game) return <div className={styles.error}>Game not found.</div>;
 
   return (
     <div className={styles.container}>
-      <div className={styles.gameHeader}>
-        <img
-          src={game.game_main_img_url}
-          alt={game.game_name}
-          className={styles.image}
-        />
-        <div>
-          <h1>{game.game_name}</h1>
-          <p>{game.game_description}</p>
-          <button
-            className={styles.addPostButton}
-            onClick={() => setPostPopUp(true)}
-          >
-            + Add Post
-          </button>
-        </div>
-      </div>
-
-      <h2 className={styles.postHeader}>Posts</h2>
+  <div className={styles.gameHeader}>
+  <div
+    className={styles.backgroundImage}
+    style={{ backgroundImage: `url(${game.game_main_img_url})` }}
+  />
+  <div className={styles.foreground}>
+    <h1>{game.game_name}</h1>
+    <p>{game.game_description}</p>
+    <div>
+    <div className={styles.starRating}>
+      <button       onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+       className={styles.starContainer}>
+      {!isHover?<h3 className={styles.stars}>{rating()}</h3>:
+      [1, 2, 3, 4, 5].map((star) => (
+    <span 
+      key={star}
+      onMouseEnter={() => setHoveredRating(star)}
+      onMouseLeave={() => setHoveredRating(0)}
+      className={
+        star <= (hoveredRating || Math.round(game?.game_rating_combined / game?.game_rating_users))
+          ? styles.starFilled
+          : styles.starEmpty
+      }
+    >
+      ★
+    </span>
+  ))}
+      
+      
+ </button>
+</div>
+    </div>
+    <h2 className={styles.postHeader}>Posts</h2>
+    <button
+      className={styles.addPostButton}
+      onClick={() => setPostPopUp(true)}
+    >
+      + Add Post
+    </button>
       <div className={styles.postList}>
         {!posts ? (
           <p>No posts yet.</p>
@@ -120,6 +155,11 @@ const GamePage = () => {
           />
         )}{" "}
       </div>
+  </div>
+  
+</div>
+
+    
     </div>
   );
 };

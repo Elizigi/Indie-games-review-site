@@ -165,13 +165,14 @@ VALUES
   1100000
 );
 
+
 INSERT INTO games (
     game_name, game_developer, game_release_date, game_genre,
     game_description, game_main_img_url, game_rating_combined, game_rating_users
 ) VALUES
 ('Celeste', 'Matt Makes Games', '2018-01-25 00:00:00', 'platformer',
  'A touching platformer about climbing a mountain and overcoming anxiety.',
- 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Celeste_box_art_full.png', 0, 0),
+ 'https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/504230/capsule_616x353.jpg', 0, 0),
 
 ('Hollow Knight', 'Team Cherry', '2017-02-24 00:00:00', 'adventure',
  'Explore twisting caverns, ancient cities and deadly creatures in a vast interconnected world.',
