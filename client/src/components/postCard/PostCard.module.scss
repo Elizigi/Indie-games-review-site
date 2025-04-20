@@ -1,0 +1,39 @@
+.postWrapper {
+    display: inline-flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: 15px;
+    padding: 20px;
+    min-width: 180px;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #e0e4f1, #c7cee9);
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: transform 0.2s ease;
+  
+    &:hover {
+      transform: translateY(-5px);
+      cursor: pointer;
+    }
+  
+    h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: #333;
+    }
+  
+    h3 {
+      background-color: #f1f3f6;
+      padding: 8px;
+      border-radius: 8px;
+      font-weight: normal;
+      color: #222;
+    }
+  
+    img {
+      max-width: 100%;
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+  }
+  

@@ -1,13 +1,6 @@
 // src/pages/games/MainPageVM.ts
 import { useEffect, useState } from "react";
-
-export interface Game {
-  game_id: number;
-  game_name: string;
-  game_description: string;
-  game_main_img_url: string;
-}
-
+import { Game } from "../../model/gameModel";
 
 export const useMainPageVM = () => {
   const [games, setGames] = useState<Game[]>([]);
