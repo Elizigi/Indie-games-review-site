@@ -1,6 +1,7 @@
 import styles from "./MainPage.module.scss";
 import { useMainPageVM } from "./MainPageVM";
 import GameCard from "../../components/gameCard/GameCard";
+import CarouselGames from "../../components/carouselGames/carouselGames";
 
 const MainPage = () => {
   const { games, loading, userRole } = useMainPageVM();
@@ -27,14 +28,7 @@ const MainPage = () => {
         ) : null}
       </div>
 
-      <div className={styles.carousel}>
-        {games.map((game) => (
-          <div key={game.game_id} className={styles.carouselItem}>
-            <img src={game.game_main_img_url} alt={game.game_name} />
-            <p>{game.game_name}</p>
-          </div>
-        ))}
-      </div>
+      <CarouselGames games={games}  />
 
       <div className={styles.grid}>
         {games.map((game) => (
