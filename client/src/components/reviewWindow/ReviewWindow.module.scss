@@ -1,22 +1,23 @@
-
-.overlay{
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
-    background-color: #87848472;
-    top: 0;
-    left: 0;
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  background-color: #87848472;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
-.ratingWrapper
-{
-    width: 50vw;
-    height: 50vh;
-    top: 25%;
-    left: 25%;
-    background-color: white;
-    position: fixed;
-    z-index: 999999;
+.ratingWrapper {
+  all: unset;
+  width: 50vw;
+  height: 40vh;
+  padding: 2rem;
+  top: 25%;
+  left: 25%;
+  background-color: white;
+  position: fixed;
+  z-index: 9999;
 }
 p {
   font-size: 1.5rem;
@@ -29,32 +30,37 @@ p {
   margin: 0 auto;
 }
 .stars {
+  all: unset;
   font-size: 2.5rem;
   font-weight: lighter;
   margin: 0;
 }
 .starRating {
+  all: unset;
   cursor: pointer;
   display: flex;
   gap: 0.2rem;
   font-size: 2.5rem;
 }
 .starFilled {
+  all: unset;
+
   color: gold;
   transition: color 0.2s;
   background-color: transparent;
 }
 
 .starEmpty {
+  all: unset;
+
   color: #878484;
   transition: color 0.2s;
 }
 .posts {
   position: relative;
   margin-top: 40vh;
-  
+
   @media screen and (max-width: 768px) {
     top: 20px;
-
   }
 }

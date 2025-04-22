@@ -62,7 +62,7 @@ const GamePage = () => {
 
          <h3>{rating()}</h3>
         {userRole.user&& <button onClick={()=>setReviewPopUp(true)}> add review</button>}
-        {reviewPopUp&& <ReviewWindow game={game}/>}
+        {reviewPopUp&& <ReviewWindow setCloseWindow={setReviewPopUp} game={game}/>}
           </div>
           <ReviewCard id={Number(id)} ></ReviewCard>
 
