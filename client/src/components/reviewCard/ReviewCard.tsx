@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react";
 import ReviewCardMV from "./ReviewCardMV"
-
+import styles from "./ReviewCard.module.scss"
 
 interface ReviewCardProps
 {
@@ -18,17 +18,17 @@ useEffect(() => {
   }, []);
   return (
    
-    <div>
-    <h2>Last reviews</h2>
-    <ul>
-      {reviews?.map((r) => (
-        <li key={r.review_id}>
-          <strong>{r.user_name}</strong> rated <em>{r.game_name}</em>:
-          {` ${r.review_rating}/5`} – {r.review_description}
-        </li>
-      ))}
-    </ul>
-  </div>
+    <div className={styles.lastReviews}>
+      <h2>Last Reviews</h2>
+      <ul>
+        {reviews?.map((r) => (
+          <li key={r.review_id}>
+            <strong>{r.user_name}</strong> rated <em>{r.game_name}</em>:
+            <span className={styles.rating}> {r.review_rating}/5</span> – <p>{r.review_description}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
