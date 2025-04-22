@@ -1,0 +1,108 @@
+.card {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+.arrow {
+  position: absolute;
+  width: 70px;
+  height: 50px;
+
+  background-color: rgb(86, 104, 167);
+  left: 20px;
+  font-weight: bold;
+  padding: 0;
+  font-size: 2rem;
+  @media screen and (max-width: 768px) {
+    top: 10px;
+    height: fit-content;
+
+  }
+}
+.gameHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow-x: hidden;
+
+  h1 {
+    font-size: 3rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    margin-bottom: 0;
+  }
+}
+
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: 100vw 100vh;
+  filter: brightness(0.5);
+  z-index: 1;
+}
+
+.foreground {
+  position: absolute;
+  z-index: 2;
+  background-color: rgba(245, 239, 239, 0.85);
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 50vw;
+  top: 50px;
+  text-align: center;
+  @media screen and (max-width: 768px) {
+    width: 90vw;
+    top: 20px;
+
+  }
+  p {
+    font-size: 1.5rem;
+  }
+
+  .starContainer {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    margin: 0 auto;
+  }
+  .stars {
+    font-size: 2.5rem;
+    font-weight: lighter;
+    margin: 0;
+  }
+  .starRating {
+    cursor: pointer;
+    display: flex;
+    gap: 0.2rem;
+    font-size: 2.5rem;
+  }
+  .starFilled {
+    color: gold;
+    transition: color 0.2s;
+    background-color: transparent;
+  }
+
+  .starEmpty {
+    color: #878484;
+    transition: color 0.2s;
+  }
+  .posts {
+    position: relative;
+    margin-top: 40vh;
+    
+    @media screen and (max-width: 768px) {
+      top: 20px;
+  
+    }
+  }
+ 
+}

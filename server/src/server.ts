@@ -43,6 +43,12 @@ import postsRoutes from "./routes/postsRoutes";
 app.use("/api/posts", postsRoutes);
 import gameRoutes from "./routes/gamesRoutes";
 app.use("/api/games", gameRoutes);
+app.use("/api/posts", postsRoutes);
+import commentRoutes from "./routes/commentRoutes";
+app.use("/api/comments", commentRoutes);
+
+import reviewRoutes from "./routes/reviewRoutes";
+app.use("/api/reviews", reviewRoutes);
 
 // Start the server
 const startServer = async () => {

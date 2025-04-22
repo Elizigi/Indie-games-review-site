@@ -1,0 +1,90 @@
+.popupBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.popup {
+  background: white;
+  border-radius: 16px;
+  max-width: 80vw;
+
+  width: fit-content;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeIn 0.2s ease;
+  padding: 24px;
+  margin: 20px 0;
+  max-height: 90vh;
+  overflow-y: auto;
+  @media screen and (max-width: 767px) {
+    height: 100vh;
+    width: 100%;
+  }
+  h2 {
+    margin: 0 auto;
+    margin-top: 0;
+    width: 700px;
+    @media screen and (max-width: 767px) {
+      width: auto;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin-top: 16px;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  button {
+    position: relative;
+    background: #0356d2;
+    border: none;
+    margin: 20px auto 0;
+    padding: 8px 16px;
+    color: white;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    width: fit-content;
+    cursor: pointer;
+    box-sizing: border-box;
+    display: block;
+
+    &:hover {
+      background: #061872;
+    }
+  }
+
+  .closeButton {
+    position: sticky;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
