@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Comment } from "../../model/commentModel";
+import { CommentModel } from "../../model/commentModel";
 
 const PostWindowVM = (postId: number) => {
-  const [postComments, setPostComments] = useState<Comment[]|null>(null);
+  const [postComments, setPostComments] = useState<CommentModel[]|null>(null);
   const [replyTo,setReplyTo]=useState<number|null>(null)
 
   async function addComment(e:React.FormEvent){
@@ -10,6 +10,7 @@ const PostWindowVM = (postId: number) => {
   
     const formData = new FormData(e.target as HTMLFormElement);
     const commentText = formData.get("text") as string;
+    console.log(replyTo);
     try {
       const response = await fetch('http://localhost:3000/api/comments/add-comment', {
         method: 'POST',

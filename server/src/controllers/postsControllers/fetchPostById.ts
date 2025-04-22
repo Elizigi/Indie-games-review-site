@@ -4,14 +4,16 @@ export async function fetchPostsByGameId(req: any, res: any) {
     try {
       const { game_id } = req.params;
   
-      // Ensure the game_id is valid
       if (!game_id) {
         return res.status(400).json({ success: false, message: "Game ID is required." });
       }
   
-      // Fetch posts linked to the game_id
       const [posts] = await pool.execute(
-        "SELECT p.* FROM posts p JOIN post_user_join_table pujt ON p.post_id = pujt.post_id WHERE pujt.game_id = ?",
+        `SELECT p.*, u.user_name
+         FROM posts p
+         JOIN post_user_join_table pujt ON p.post_id = pujt.post_id
+         JOIN users u ON pujt.user_id = u.user_id
+         WHERE pujt.game_id = ?`,
         [game_id]
       );
   
@@ -24,5 +26,6 @@ export async function fetchPostsByGameId(req: any, res: any) {
       console.error("Error fetching posts:", error);
       res.status(500).json({ success: false, message: "An error occurred while fetching posts." });
     }
-  }
-  export default fetchPostsByGameId;
+}
+
+export default fetchPostsByGameId;

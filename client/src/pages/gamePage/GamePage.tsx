@@ -2,102 +2,40 @@ import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import styles from "./GamePage.module.scss";
 import AddPostWindow from "../../components/AddPostWindow/AddPostWindow";
-import { Post } from "../../model/postModel";
-import { Game } from "../../model/gameModel";
 import PostWindow from "../../components/postWindow/PostWindow";
 import PostCard from "../../components/postCard/PostCard";
 import Auth from "../../components/auth/Auth";
+import GamePageVM from "./GamePageVM";
 
 const GamePage = () => {
   const { id } = useParams();
-  const [game, setGame] = useState<Game | null>(null);
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [postPopUp, setPostPopUp] = useState(false);
-  const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-  const [hoveredRating, setHoveredRating] = useState(0);
+
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
-  const {userRole} =Auth()
-
+  const { userRole } = Auth();
+  const {
+    setSelectedPost,
+    setPostPopUp,
+    setHoveredRating,
+    fetchGames,
+    fetchPosts,
+    rateGame,
+    rating,
+    posts,
+    loading,
+    postPopUp,
+    hoveredRating,
+    selectedPost,
+    game,
+  } = GamePageVM(Number(id));
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const resPosts = await fetch(
-          `http://localhost:3000/api/posts/fetch-posts-by-game/${id}`,
-          {
-            credentials: "include",
-          }
-        );
-        const postData = await resPosts.json();
-        const { posts } = postData;
-
-        console.log(postData);
-
-        console.log(posts);
-        setPosts(posts);
-      } catch (err) {
-        console.error("Error loading game or posts:", err);
-      }
-    };
-    const fetchGames = async () => {
-      try {
-        const resGame = await fetch(
-          `http://localhost:3000/api/games/fetch-game/${id}`,
-          {
-            credentials: "include",
-          }
-        );
-        const gameData = await resGame.json();
-        if (!resGame.ok)
-          throw new Error(gameData.message ?? "Game fetch failed");
-        const { game } = gameData;
-        setGame(game);
-      } catch (err) {
-        console.error("Error loading game or posts:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGames();
+  
     fetchPosts();
-  }, [id]);
-  async function rateGame() {
-    if (!game) return;
-    const response = await fetch("http://localhost:3000/api/games/rate-game", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({
-        game_id: game?.game_id,
-        review_description: "description",
-        review_rating: hoveredRating,
-      }),
-    });
-
-    const data = await response.json();
-    console.log(data);
-    return data;
-  }
-
-  function rating() {
-    const totalStars = 5;
-
-    if (!game?.game_rating_users || game?.game_rating_combined === 0) {
-      return "☆".repeat(totalStars);
-    }
-
-    const avg = Math.round(game.game_rating_combined / game.game_rating_users);
-    return (
-      <>
-        <span style={{ color: "gold" }}>{"★".repeat(avg)}</span>
-        {"☆".repeat(totalStars - avg)}
-      </>
-    );
-  }
+  }, []);
+  useEffect(() => {
+    fetchGames();
+  
+  }, []);
 
   if (loading) return <div className={styles.loading}>Loading...</div>;
   if (!game) return <div className={styles.error}>Game not found.</div>;
@@ -120,7 +58,7 @@ const GamePage = () => {
           <h1>{game.game_name}</h1>
           <p>{game.game_description}</p>
           <div>
-          {!userRole.user&& <h3 >login to rate</h3>}
+            {!userRole.user && <h3>login to rate</h3>}
 
             <div className={styles.starRating}>
               <button
@@ -128,8 +66,7 @@ const GamePage = () => {
                 onMouseLeave={() => setIsHover(false)}
                 className={styles.starContainer}
               >
-                {!isHover ||!userRole.user? (
-                  
+                {!isHover || !userRole.user ? (
                   <h3 className={styles.stars}>{rating()}</h3>
                 ) : (
                   [1, 2, 3, 4, 5].map((star) => (
@@ -157,12 +94,20 @@ const GamePage = () => {
           </div>
           <div className={styles.posts}>
             <h2 className={styles.postHeader}>Posts</h2>
-           { userRole.user?<button
-              className={styles.addPostButton}
-              onClick={() => setPostPopUp(true)}
-            >
-              + Add Post
-            </button>:<> <p>login to post: </p><button onClick={()=>navigate("/login")}>Login</button></>}
+            {userRole.user ? (
+              <button
+                className={styles.addPostButton}
+                onClick={() => setPostPopUp(true)}
+              >
+                + Add Post
+              </button>
+            ) : (
+              <>
+                {" "}
+                <p>login to post: </p>
+                <button onClick={() => navigate("/login")}>Login</button>
+              </>
+            )}
             <div className={styles.postList}>
               {!posts ? (
                 <p>No posts yet.</p>
@@ -188,6 +133,7 @@ const GamePage = () => {
                 <AddPostWindow
                   gameId={game?.game_id}
                   onClose={() => setPostPopUp(false)}
+                  fetchPosts={() => fetchPosts()}
                 />
               )}{" "}
             </div>

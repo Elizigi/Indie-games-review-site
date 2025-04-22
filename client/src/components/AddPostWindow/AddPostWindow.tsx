@@ -5,11 +5,12 @@ import { useAddPostVM } from "./AddPostWindowVM";
 interface Props {
   gameId: number;
   onClose: (close: boolean) => void;
+  fetchPosts: () => void;
 }
 
-const AddPostWindow: FC<Props> = ({ gameId, onClose, }) => {
-  const { formData, handleChange,handleTitleChange, handleSubmit, message, loading } =
-    useAddPostVM(gameId, onClose);
+const AddPostWindow: FC<Props> = ({ gameId, onClose,fetchPosts }) => {
+  const { formData, handleChange,handleImgChange,handleTitleChange, handleSubmit, message, loading } =
+    useAddPostVM(gameId, onClose,fetchPosts);
 
   return (
     <div className={styles.overlay}>
@@ -28,6 +29,13 @@ const AddPostWindow: FC<Props> = ({ gameId, onClose, }) => {
             value={formData.text}
             onChange={handleChange}
             placeholder="Write your post..."
+            required
+          />
+           <input
+            name="text"
+            value={formData.imgUrl}
+            onChange={handleImgChange}
+            placeholder=" img url (optional)"
             required
           />
           <div className={styles.buttons}>

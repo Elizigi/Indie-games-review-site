@@ -6,11 +6,11 @@ interface PostWindowProps{
     onClick:(post:Post)=>void;
 }
 const PostCard:FC<PostWindowProps> = ({post ,onClick}) => {
-   // const {fetchPostWithComments} = PostWindowVM(post.post_id)
  
   return (
     <div className={styles.postWrapper} onClick={() => onClick(post)}>
     <h2>{post.post_title}</h2>
+    <p>{post.user_name}</p>
     <h3>{post.post_description}</h3>
     {post.post_img_url && post.post_img_url !== "aaa" && <img src={post.post_img_url} alt={post.post_title} />}
   </div>

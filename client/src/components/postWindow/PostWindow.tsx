@@ -4,6 +4,7 @@ import { Post } from "../../model/postModel";
 import PostWindowVM from "./PostWindowVM";
 import Auth from "../auth/Auth";
 import { useNavigate } from "react-router";
+import CommentsSection from "../commentSection/CommentSection";
 
 interface PostWindowProps {
   setSelectedPost: (post: Post | null) => void;
@@ -18,16 +19,16 @@ const PostWindow: FC<PostWindowProps> = ({ post, setSelectedPost }) => {
   const {userRole} =Auth()
   
   useEffect(() => {
-    if(!postComments)
     fetchPostWithComments();
-    console.log(postComments);
-  }, [fetchPostWithComments, postComments]);
+  }, []);
 
   return (
     <div className={styles.popupBackdrop} onClick={() => setSelectedPost(null)}>
       <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
-        <button onClick={() => setSelectedPost(null)}>Close</button>
+        <button className={styles.closeButton} onClick={() => setSelectedPost(null)}>Close</button>
         <h2>{post.post_title}</h2>
+        <h2>{post.user_name}</h2>
+
         <p>{post.post_description}</p>
         {post.post_img_url && <img src={post.post_img_url} alt="" />}
         <hr />
@@ -41,14 +42,7 @@ const PostWindow: FC<PostWindowProps> = ({ post, setSelectedPost }) => {
         {!postComments ? (
           <h3>no comments yet</h3>
         ) : (
-          postComments.map((comment) => (
-            <div key={comment.comment_id}>
-              <p>{comment.user_name}</p>
-              <h3>{comment.comment_description}</h3>
-              {userRole.user&&<button onClick={()=>setReplyTo(comment.comment_id)}>↩</button>}
-            </div>
-          ))
-        )}
+       <CommentsSection setReplyTo={setReplyTo} postComments={postComments} userRole={userRole}></CommentsSection>)}
       </div>
     </div>
   );

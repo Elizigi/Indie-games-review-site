@@ -51,20 +51,22 @@ export async function getComments(req: any, res: any) {
       return res
         .status(400)
         .json({ success: false, message: "Post ID is required." });
-
+    
+    // Fetch all comments for the post, including replies
     const [comments] = await pool.execute(
-      `SELECT c.comment_id, c.comment_description, u.user_name 
+      `SELECT c.comment_id, c.comment_description, c.comment_responding_to, u.user_name
        FROM comments c
        JOIN comment_user_join_table cujt ON cujt.comment_id = c.comment_id
        JOIN users u ON cujt.user_id = u.user_id
-     WHERE c.comment_responding_to IS NULL AND c.post_id = ?`,
+       WHERE c.post_id = ?`,
       [post_id]
     );
+    
     if ((comments as any[]).length === 0)
       return res
         .status(404)
         .json({ success: false, message: "No comments found for this post." });
-
+    
     res.status(200).json({ success: true, comments });
   } catch (error) {
     console.error("Error fetching comments for post:", error);
