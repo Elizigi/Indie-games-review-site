@@ -2,6 +2,8 @@ import { FC, useEffect } from "react";
 import styles from "./PostWindow.module.scss";
 import { Post } from "../../model/postModel";
 import PostWindowVM from "./PostWindowVM";
+import Auth from "../auth/Auth";
+import { useNavigate } from "react-router";
 
 interface PostWindowProps {
   setSelectedPost: (post: Post | null) => void;
@@ -12,6 +14,9 @@ const PostWindow: FC<PostWindowProps> = ({ post, setSelectedPost }) => {
   const { fetchPostWithComments, postComments, addComment,setReplyTo } = PostWindowVM(
     post.post_id
   );
+  const navigate=useNavigate();
+  const {userRole} =Auth()
+  
   useEffect(() => {
     if(!postComments)
     fetchPostWithComments();
@@ -26,11 +31,11 @@ const PostWindow: FC<PostWindowProps> = ({ post, setSelectedPost }) => {
         <p>{post.post_description}</p>
         {post.post_img_url && <img src={post.post_img_url} alt="" />}
         <hr />
-        <form onSubmit={addComment}>
+        {userRole.user?<form onSubmit={addComment}>
           <p>add comment:</p>
           <textarea name="text" id="text"></textarea>
           <input type="submit" value="submit" />
-        </form>
+        </form>:<> <p>login to comment: </p><button onClick={()=>navigate("/login")}>Login</button></>}
         <hr />
         <h3>comments: </h3>
         {!postComments ? (
@@ -40,7 +45,7 @@ const PostWindow: FC<PostWindowProps> = ({ post, setSelectedPost }) => {
             <div key={comment.comment_id}>
               <p>{comment.user_name}</p>
               <h3>{comment.comment_description}</h3>
-              <button onClick={()=>setReplyTo(comment.comment_id)}>↩</button>
+              {userRole.user&&<button onClick={()=>setReplyTo(comment.comment_id)}>↩</button>}
             </div>
           ))
         )}

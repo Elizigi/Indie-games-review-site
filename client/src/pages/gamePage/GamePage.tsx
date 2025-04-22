@@ -6,6 +6,7 @@ import { Post } from "../../model/postModel";
 import { Game } from "../../model/gameModel";
 import PostWindow from "../../components/postWindow/PostWindow";
 import PostCard from "../../components/postCard/PostCard";
+import Auth from "../../components/auth/Auth";
 
 const GamePage = () => {
   const { id } = useParams();
@@ -17,6 +18,8 @@ const GamePage = () => {
   const [hoveredRating, setHoveredRating] = useState(0);
   const navigate = useNavigate();
   const [isHover, setIsHover] = useState(false);
+  const {userRole} =Auth()
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -117,13 +120,16 @@ const GamePage = () => {
           <h1>{game.game_name}</h1>
           <p>{game.game_description}</p>
           <div>
+          {!userRole.user&& <h3 >login to rate</h3>}
+
             <div className={styles.starRating}>
               <button
                 onMouseEnter={() => setIsHover(true)}
                 onMouseLeave={() => setIsHover(false)}
                 className={styles.starContainer}
               >
-                {!isHover ? (
+                {!isHover ||!userRole.user? (
+                  
                   <h3 className={styles.stars}>{rating()}</h3>
                 ) : (
                   [1, 2, 3, 4, 5].map((star) => (
@@ -151,12 +157,12 @@ const GamePage = () => {
           </div>
           <div className={styles.posts}>
             <h2 className={styles.postHeader}>Posts</h2>
-            <button
+           { userRole.user?<button
               className={styles.addPostButton}
               onClick={() => setPostPopUp(true)}
             >
               + Add Post
-            </button>
+            </button>:<> <p>login to post: </p><button onClick={()=>navigate("/login")}>Login</button></>}
             <div className={styles.postList}>
               {!posts ? (
                 <p>No posts yet.</p>

@@ -10,7 +10,6 @@ interface CarouselGamesProps {
 const CarouselGames: FC<CarouselGamesProps> = ({ games }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Drag state refs
   const isDraggingRef = useRef<boolean>(false);
   const startXRef = useRef<number>(0);
   const scrollLeftRef = useRef<number>(0);
@@ -21,7 +20,6 @@ const CarouselGames: FC<CarouselGamesProps> = ({ games }) => {
     navigate(`/game/${game_id}`);
   };
 
-  // Prevent context menu and handle right-click release
   useEffect(() => {
     const handleMouseUp = (e: MouseEvent) => {
       if (e.button === 0) {
@@ -69,6 +67,7 @@ const CarouselGames: FC<CarouselGamesProps> = ({ games }) => {
     .slice(0, 3);
   return (
     <div className={styles.wrapper}>
+      <h2>top rated games</h2>
       <div
         ref={containerRef}
         className={styles.carouselContainer}

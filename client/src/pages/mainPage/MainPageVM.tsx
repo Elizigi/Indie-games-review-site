@@ -5,7 +5,6 @@ import { Game } from "../../model/gameModel";
 export const useMainPageVM = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
-  const [userRole, setUserRole] = useState<"user" | "developer" | "admin" | null>(null);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/games/fetch-games", {
@@ -21,18 +20,7 @@ export const useMainPageVM = () => {
       .catch(() => setLoading(false));
   }, []);
 
-  useEffect(() => {
-    fetch("http://localhost:3000/api/users/check-role", {
-      credentials: "include",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setUserRole(data.role);
-      })
-      .catch(() => {
-        setUserRole("user");
-      });
-  }, []);
+ 
 
-  return { games, loading, userRole };
+  return { games, loading };
 };

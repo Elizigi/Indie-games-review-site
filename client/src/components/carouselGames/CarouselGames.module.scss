@@ -20,6 +20,15 @@
     width: 50vw;
     height: 40vh;
     margin: 0 auto;
+    margin-bottom: 50px;
+    margin-top: 25px;
+      h2{
+        margin: 0;
+        color: white;
+        position: relative;
+        top:52px
+      }
+
     justify-content: center;
 }
 .carouselItem {
