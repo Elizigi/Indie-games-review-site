@@ -14,7 +14,7 @@ const ReviewWindow: FC<ReviewWindowProps> = ({ game,setCloseWindow }) => {
 
   async function rateGame(description: string) {
     if (!game) return;
-    const response = await fetch("http://localhost:3000/api/games/rate-game", {
+    const response = await fetch("http://localhost:3000/api/reviews/rate-game", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
