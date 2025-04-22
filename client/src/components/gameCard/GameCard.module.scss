@@ -7,13 +7,15 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s ease;
+  padding: auto;
 
   &:hover {
     transform: scale(1.02);
   }
   .gameRating{
+
     bottom: 250px;
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
   .image {
     width: 100%;

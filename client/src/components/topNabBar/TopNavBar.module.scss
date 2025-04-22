@@ -4,9 +4,11 @@
   z-index: 9999999;
   height: fit-content;
   display: flex;
-  background-color: rgb(35, 129, 188);
+  background-color: rgb(20, 33, 41);
+  padding: 0.51rem;
   align-items: center;
-  .logoSpacer{    flex: 1;
+  .logoSpacer{    
+    flex: 1;
   }
   h1 {
     margin: 0;
@@ -30,7 +32,7 @@
   button {
     width: fit-content;
     height: fit-content;
-    margin-right: 2vw;
+    margin-right: 1.2vw;
   }
 }
 @keyframes steam {

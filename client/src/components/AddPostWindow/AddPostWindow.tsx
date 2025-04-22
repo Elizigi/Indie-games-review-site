@@ -36,7 +36,6 @@ const AddPostWindow: FC<Props> = ({ gameId, onClose,fetchPosts }) => {
             value={formData.imgUrl}
             onChange={handleImgChange}
             placeholder=" img url (optional)"
-            required
           />
           <div className={styles.buttons}>
             <button type="submit" disabled={loading} >
