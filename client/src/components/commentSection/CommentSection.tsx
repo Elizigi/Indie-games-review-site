@@ -11,43 +11,35 @@ interface CommentsProps {
 }
 
 const CommentsSection: React.FC<CommentsProps> = ({ postComments, userRole, setReplyTo }) => {
-  // Organize comments into a hierarchical structure
-  const organizeComments = (comments: CommentModel[]): CommentModel[] => {
+   const organizeComments = (comments: CommentModel[]): CommentModel[] => {
     const commentMap: Record<number, CommentModel> = {};
     const rootComments: CommentModel[] = [];
     
-    // First pass: map comments by ID
-    comments.forEach(comment => {
+     comments.forEach(comment => {
       const commentCopy = { ...comment, replies: [] };
       commentMap[comment.comment_id] = commentCopy;
     });
     
-    // Second pass: organize into hierarchy
-    comments.forEach(comment => {
+     comments.forEach(comment => {
       if (comment.comment_responding_to) {
-        // This is a reply, add it to its parent's replies
-        if (commentMap[comment.comment_responding_to]) {
+         if (commentMap[comment.comment_responding_to]) {
           commentMap[comment.comment_responding_to].replies?.push(commentMap[comment.comment_id]);
         }
       } else {
-        // This is a root comment
-        rootComments.push(commentMap[comment.comment_id]);
+         rootComments.push(commentMap[comment.comment_id]);
       }
     });
     
     return rootComments;
   };
 
-  // Create organized comments structure
-  const organizedComments = organizeComments(postComments);
+   const organizedComments = organizeComments(postComments);
   
-  // Recursive component to render comments and their replies
-  const CommentItem: React.FC<{
+   const CommentItem: React.FC<{
     comment: CommentModel;
     level?: number;
   }> = ({ comment, level = 0 }) => {
-    // Determine nested level class (for different styling per nesting level)
-    const nestedLevelClass = level > 0 ? styles[`nested-level-${Math.min(level, 3)}`] : '';
+     const nestedLevelClass = level > 0 ? styles[`nested-level-${Math.min(level, 3)}`] : '';
     
     return (
       <div 
@@ -65,8 +57,7 @@ const CommentsSection: React.FC<CommentsProps> = ({ postComments, userRole, setR
           </button>
         )}
         
-        {/* Render replies */}
-        {comment.replies && comment.replies.length > 0 && (
+         {comment.replies && comment.replies.length > 0 && (
           <div className={styles['replies-container']}>
             {comment.replies.map(reply => (
               <CommentItem 
