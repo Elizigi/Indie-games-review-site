@@ -10,57 +10,79 @@
 
 .ratingWrapper {
   all: unset;
-  width: 50vw;
+  color: unset;
+  display: flex;
+  flex-direction: column;
+  width: 20vw;
   height: 40vh;
   padding: 2rem;
   top: 25%;
-  left: 25%;
+  left: 35%;
   background-color: white;
   position: fixed;
   z-index: 9999;
-}
-p {
-  font-size: 1.5rem;
-}
-
-.starContainer {
-  all: unset;
-  cursor: pointer;
-  display: inline-flex;
-  margin: 0 auto;
-}
-.stars {
-  all: unset;
-  font-size: 2.5rem;
-  font-weight: lighter;
-  margin: 0;
-}
-.starRating {
-  all: unset;
-  cursor: pointer;
-  display: flex;
-  gap: 0.2rem;
-  font-size: 2.5rem;
-}
-.starFilled {
-  all: unset;
-
-  color: gold;
-  transition: color 0.2s;
-  background-color: transparent;
-}
-
-.starEmpty {
-  all: unset;
-
-  color: #878484;
-  transition: color 0.2s;
-}
-.posts {
-  position: relative;
-  margin-top: 40vh;
-
-  @media screen and (max-width: 768px) {
-    top: 20px;
+  button {
+    color: unset;
+    all: unset;
+    &:hover {
+      background-color: unset;
+    }
   }
+
+  .submitBtn {
+    background-color: rgb(64, 110, 235);
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    margin: 0 auto;
+    &:hover {
+      background-color: rgb(33, 62, 144);
+      scale: 1.1;
+    }
+  }
+  .cancelBtn {
+    background-color: rgb(64, 110, 235);
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 20px;
+    &:hover {
+      background-color: rgb(33, 62, 144);
+      scale: 1.1;
+    }
+  }
+  .starContainer {
+    all: unset;
+    cursor: pointer;
+    display: inline-flex;
+    margin: 0 auto;
+  }
+  .stars {
+    font-size: 2.5rem;
+    font-weight: lighter;
+    margin: 0;
+  }
+  .starRating {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    gap: 0.2rem;
+    font-size: 2.5rem;
+  }
+  .starFilled {
+    color: gold;
+    transition: color 0.2s;
+    background-color: transparent;
+  }
+
+  .starEmpty {
+    color: #878484;
+    transition: color 0.2s;
+  }
+ 
 }

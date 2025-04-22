@@ -94,9 +94,9 @@ const ReviewWindow: FC<ReviewWindowProps> = ({ game,setCloseWindow }) => {
         </div>
         <form onSubmit={submitRating}>
           <textarea name="description" id="description"></textarea>
-          <input type="submit" placeholder="submit" />
+          <input type="submit" placeholder="submit" className={styles.submitBtn}  />
         </form>
-        <button onClick={()=>setCloseWindow(false)}>cancel</button>
+        <button className={styles.cancelBtn} onClick={()=>setCloseWindow(false)}>cancel</button>
       </div>
       </>
   );
