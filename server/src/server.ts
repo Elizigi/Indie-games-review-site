@@ -47,6 +47,9 @@ app.use("/api/posts", postsRoutes);
 import commentRoutes from "./routes/commentRoutes";
 app.use("/api/comments", commentRoutes);
 
+import reviewRoutes from "./routes/reviewRoutes";
+app.use("/api/reviews", reviewRoutes);
+
 // Start the server
 const startServer = async () => {
   try {
