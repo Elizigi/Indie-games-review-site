@@ -7,23 +7,20 @@ import CarouselGames from "../../components/carouselGames/CarouselGames";
 const MainPage = () => {
   const { games, loading } = useMainPageVM();
 
-  
-
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className={styles.container}>Loading...</div>;
 
   return (
-    <>
-    <TopNavBar></TopNavBar>
+    <div className={styles.container}>
+      <TopNavBar />
 
-
-      <CarouselGames games={games}  />
+      <CarouselGames games={games} />
 
       <div className={styles.grid}>
         {games.map((game) => (
           <GameCard key={game.game_id} game={game} />
         ))}
       </div>
-   </>
+    </div>
   );
 };
 
