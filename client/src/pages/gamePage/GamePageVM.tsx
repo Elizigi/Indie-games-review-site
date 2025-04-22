@@ -8,28 +8,9 @@ const GamePageVM = (id:number) => {
     const [loading, setLoading] = useState(true);
     const [postPopUp, setPostPopUp] = useState(false);
     const [selectedPost, setSelectedPost] = useState<Post | null>(null);
-    const [hoveredRating, setHoveredRating] = useState(0);
+    const [reviewPopUp, setReviewPopUp] = useState(false);
 
-    async function rateGame() {
-     
-        if (!game) return;
-        const response = await fetch("http://localhost:3000/api/games/rate-game", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            game_id: game?.game_id,
-            review_description: "description",
-            review_rating: hoveredRating,
-          }),
-        });
     
-        const data = await response.json();
-        console.log(data);
-        return data;
-      }
     
       function rating() {
         const totalStars = 5;
@@ -85,7 +66,18 @@ const GamePageVM = (id:number) => {
         }}
 
   return (
-    {setSelectedPost,setPostPopUp,setHoveredRating,fetchGames,fetchPosts,rateGame,rating,posts,loading,postPopUp,selectedPost,game,hoveredRating}
+    {  setSelectedPost,
+      setPostPopUp,
+      fetchGames,
+      fetchPosts,
+      setReviewPopUp,
+      rating,
+      posts,
+      loading,
+      postPopUp,
+      reviewPopUp,
+      selectedPost,
+      game}
   )
 }
 
